@@ -380,7 +380,7 @@ export default function App() {
       )}
 
       {/* Top Header Navigation bar (Vibrant Palette Theme Styling) */}
-      <nav id="top-nav" className="h-20 bg-white border-b-4 border-emerald-500/20 px-4 md:px-8 flex items-center justify-between shadow-sm sticky top-0 z-40">
+      <nav id="top-nav" className="min-h-20 bg-white border-b-4 border-emerald-500/20 px-4 md:px-8 flex flex-wrap md:flex-nowrap items-center justify-between gap-3 shadow-sm sticky top-0 z-40 py-3 md:py-0">
         <div className="flex items-center gap-3">
           <div className="w-11 h-11 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-200">
             <Leaf className="w-6 h-6 text-white" />
@@ -390,7 +390,7 @@ export default function App() {
               <span className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">SchoolNetZero</span>
               <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 font-bold rounded-full">by PS Platform</span>
             </div>
-            <p className="text-[10px] font-black tracking-widest text-emerald-600 uppercase">
+            <p className="text-[10px] font-black tracking-widest text-emerald-600 uppercase hidden sm:block">
               Smart Pre-Order & Carbon Minimizer Canteen
             </p>
           </div>
@@ -447,7 +447,7 @@ export default function App() {
       <main className="flex-1 p-3 md:p-6 lg:p-8 max-w-[1400px] w-full mx-auto grid grid-cols-12 gap-4 lg:gap-8">
         
         {/* Left Side: Student Pre-Order Perspective */}
-        <section id="student-perspective" className={`col-span-12 ${activeRole === "student" ? "lg:col-span-5" : "lg:col-span-4 lg:opacity-75"} flex flex-col gap-4 md:gap-6`}>
+        <section id="student-perspective" className={`col-span-12 ${activeRole === "student" ? "lg:col-span-5" : "hidden lg:flex lg:col-span-4 lg:opacity-75"} flex flex-col gap-4 md:gap-6`}>
           <div className="bg-white rounded-[32px] md:rounded-[40px] p-4 md:p-8 shadow-xl border-4 border-emerald-500/10 flex-1 relative flex flex-col">
             
             {/* Corner Interface badge */}
@@ -829,7 +829,7 @@ export default function App() {
 
               {/* Dynamic Carbon Impact Dashboard Estimate & Input fields */}
               <div className="mt-4 pt-4 border-t-2 border-dashed border-slate-100 space-y-3.5">
-                <div className="flex flex-wrap md:flex-nowrap gap-2">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <div className="flex-1">
                     <label className="block text-[10px] font-black text-slate-400 uppercase">ชื่อเล่นนักเรียน / หมายเลขโต๊ะ</label>
                     <input
@@ -841,7 +841,7 @@ export default function App() {
                       className="w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:border-emerald-500 focus:bg-white outline-none"
                     />
                   </div>
-                  <div className="w-32">
+                  <div className="w-full sm:w-32">
                     <label className="block text-[10px] font-black text-slate-400 uppercase">ระดับชั้น</label>
                     <input
                       required
@@ -933,7 +933,7 @@ export default function App() {
         </section>
 
         {/* Right Side: Cook Dashboard / Sustainability Hub */}
-        <section id="cook-perspective" className={`col-span-12 ${activeRole === "cook" ? "lg:col-span-7" : "lg:col-span-8"} flex flex-col gap-6`}>
+        <section id="cook-perspective" className={`col-span-12 ${activeRole === "cook" ? "lg:col-span-7" : "hidden lg:flex lg:col-span-8"} flex flex-col gap-6`}>
           
           {/* Dashboard Summary Panels */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
