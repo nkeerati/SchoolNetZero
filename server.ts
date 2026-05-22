@@ -675,7 +675,7 @@ app.post("/api/gemini/analysis", async (req, res) => {
          Only output the JSON string, do not include any markdown fences or triple backticks.`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
+      model: "gemini-3.5-flash",
       contents: prompt,
       config: {
         responseMimeType: "application/json",
