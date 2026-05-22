@@ -147,8 +147,6 @@ export default function App() {
   // Toast notifications state
   const [toastMessage, setToastMessage] = useState<{title: string, desc: string, type: "success" | "info" | "eco"} | null>(null);
 
-  // Search filter
-  const [searchQuery, setSearchQuery] = useState<string>("");
 
   // Initial Data Load
   const fetchData = async () => {
@@ -347,12 +345,6 @@ export default function App() {
     }
   }, [shops.length]);
 
-  // Handle Search Filtering
-  const filteredShops = shops.filter(shop => 
-    shop.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    shop.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    shop.thaiName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <div className="min-h-screen bg-emerald-50 text-slate-800 flex flex-col font-sans transition-colors duration-200">
@@ -475,21 +467,6 @@ export default function App() {
               <label className="block text-[11px] font-black text-slate-500 mb-2 uppercase tracking-wide">
                 1. เลือกร้านค้าพันธมิตร NetZero
               </label>
-              <div className="relative mb-3">
-                <input
-                  id="shop-search"
-                  type="text"
-                  placeholder="ค้นหาชื่อร้าน, ค้นหาเมนูอาหาร..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full text-xs p-3 pl-9 bg-slate-50 border border-slate-200 rounded-xl focus:border-emerald-500 focus:bg-white outline-none transition-colors"
-                />
-                <Compass className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
-                {searchQuery && (
-                  <button onClick={() => setSearchQuery("")} className="absolute right-3 top-2.5 text-xs font-bold text-slate-400 hover:text-slate-600">✕</button>
-                )}
-              </div>
-
               {/* Grid lists of Shops */}
               {loading ? (
                 <div className="space-y-2 py-4">
@@ -498,7 +475,7 @@ export default function App() {
                 </div>
               ) : (
                 <div className="grid grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-2 max-h-[160px] overflow-y-auto pr-1">
-                  {filteredShops.map((shop) => (
+                  {shops.map((shop) => (
                     <div
                       key={shop.id}
                       onClick={() => handleShopSelect(shop)}
@@ -528,8 +505,8 @@ export default function App() {
                       </div>
                     </div>
                   ))}
-                  {filteredShops.length === 0 && (
-                    <p className="col-span-2 text-center py-4 text-xs text-slate-400">ไม่พบร้านอาหารที่ตรงเงื่อนไขค้นหา</p>
+                  {shops.length === 0 && (
+                    <p className="col-span-2 text-center py-4 text-xs text-slate-400">ยังไม่มีร้านค้าในขณะนี้</p>
                   )}
                 </div>
               )}
