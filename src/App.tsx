@@ -67,6 +67,8 @@ interface Order {
   noodleType?: string;
   noodleSoup?: string;
   noodleDryOrSoup?: string;
+  pickupDate?: string;
+  pickupTime?: string;
 }
 
 interface SustainabilityStats {
@@ -128,6 +130,8 @@ export default function App() {
   const [customMenuName, setCustomMenuName] = useState<string>("");
   const [studentName, setStudentName] = useState<string>("");
   const [studentClass, setStudentClass] = useState<string>("");
+  const [pickupDate, setPickupDate] = useState<string>("");
+  const [pickupTime, setPickupTime] = useState<string>("");
   const [ricePortion, setRicePortion] = useState<"ข้าวน้อย" | "ปกติ" | "ข้าวมาก">("ปกติ");
   const [noVeggies, setNoVeggies] = useState<boolean>(false);
   const [noStraw, setNoStraw] = useState<boolean>(true);
@@ -244,7 +248,9 @@ export default function App() {
         noodleType: selectedShop.id === "shop-2" ? noodleType : undefined,
         noodleSoup: selectedShop.id === "shop-2" ? noodleSoup : undefined,
         noodleDryOrSoup: selectedShop.id === "shop-2" ? noodleDryOrSoup : undefined,
-        customMenuName: selectedItem.id.endsWith("-other") ? customMenuName : undefined
+        customMenuName: selectedItem.id.endsWith("-other") ? customMenuName : undefined,
+        pickupDate: pickupDate || undefined,
+        pickupTime: pickupTime || undefined
       };
 
       const res = await fetch("/api/orders", {
@@ -275,6 +281,8 @@ export default function App() {
         // Clear personal name/ID options if placed
         setStudentName("");
         setStudentClass("");
+        setPickupDate("");
+        setPickupTime("");
         setCustomMenuName("");
       } else {
         triggerToast("เกิดข้อผิดพลาด", data.error || "ไม่สามารถส่งคำสั่งซื้อล่วงหน้าได้", "info");
@@ -380,7 +388,7 @@ export default function App() {
           <div>
             <div className="flex items-baseline gap-2">
               <span className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">SchoolNetZero</span>
-              <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 font-bold rounded-full">by PS Platform</span>
+              <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 font-bold rounded-full">by POTISARN Platform</span>
             </div>
             <p className="text-[10px] font-black tracking-widest text-emerald-600 uppercase hidden sm:block">
               Smart Pre-Order & Carbon Minimizer Canteen
@@ -831,6 +839,29 @@ export default function App() {
                   </div>
                 </div>
 
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <div className="flex-1">
+                    <label className="block text-[10px] font-black text-slate-400 uppercase">วันที่รับอาหาร</label>
+                    <input
+                      required
+                      type="date"
+                      value={pickupDate}
+                      onChange={(e) => setPickupDate(e.target.value)}
+                      className="w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:border-emerald-500 focus:bg-white outline-none whitespace-nowrap"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <label className="block text-[10px] font-black text-slate-400 uppercase">เวลารับอาหาร</label>
+                    <input
+                      required
+                      type="time"
+                      value={pickupTime}
+                      onChange={(e) => setPickupTime(e.target.value)}
+                      className="w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:border-emerald-500 focus:bg-white outline-none whitespace-nowrap"
+                    />
+                  </div>
+                </div>
+
                 {/* Footprint Preview Card */}
                 {selectedItem && (
                   <div className="p-3 bg-emerald-950 text-white rounded-2xl flex items-center justify-between">
@@ -1156,6 +1187,11 @@ export default function App() {
                             {or.timestamp ? new Date(or.timestamp).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) : "--:--"} น.
                           </span>
                           <span className="text-[10px] font-black text-slate-600 bg-orange-100/70 border border-orange-200 text-orange-850 px-2 py-0.5 rounded-full">{or.shopName}</span>
+                          {or.pickupDate && (
+                            <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-100 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                              📅 {or.pickupDate} {or.pickupTime ? `เวลา ${or.pickupTime} น.` : ""}
+                            </span>
+                          )}
                         </div>
                         <div className="mt-1.5 flex items-center gap-1.5">
                           <h4 className="font-black text-xs text-slate-900">{or.menuName}</h4>

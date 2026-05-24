@@ -473,7 +473,9 @@ app.post("/api/orders", (req, res) => {
     noodleType,
     noodleSoup,
     noodleDryOrSoup,
-    customMenuName
+    customMenuName,
+    pickupDate,
+    pickupTime
   } = req.body;
 
   if (!shopId || !menuId) {
@@ -529,7 +531,9 @@ app.post("/api/orders", (req, res) => {
     isSeeded: false,
     noodleType: noodleType || undefined,
     noodleSoup: noodleSoup || undefined,
-    noodleDryOrSoup: noodleDryOrSoup || undefined
+    noodleDryOrSoup: noodleDryOrSoup || undefined,
+    pickupDate: pickupDate || undefined,
+    pickupTime: pickupTime || undefined
   };
 
   ordersList.push(newOrder);
